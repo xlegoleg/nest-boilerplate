@@ -1,0 +1,58 @@
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: npm run start:dev reservations
+    env_file:
+      - ./apps/reservations/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - TZ=Europe/Belgrade
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:dev auth
+    env_file:
+      - ./apps/auth/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - TZ=Europe/Belgrade
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: npm run start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - '3002:3002'
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - TZ=Europe/Belgrade
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    environment:
+      - TZ=Europe/Belgrade
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: postgres
+      TZ: Europe/Belgrade
