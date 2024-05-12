@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin AWS_HOST
+  build:
+    commands:
+      - docker build -t reservations -f ./apps/reservations/Dockerfile .
+      - docker tag reservations:latest AWS_IMAGE_PATH_1:latest
+
+      - docker build -t auth -f ./apps/auth/Dockerfile .
+      - docker tag auth:latest AWS_IMAGE_PATH_2:latest
+
+      - docker build -t payments -f ./apps/payments/Dockerfile .
+      - docker tag payments:latest AWS_IMAGE_PATH_3:latest
+
+      - docker build -t notifications -f ./apps/notifications/Dockerfile .
+      - docker tag notifications:latest AWS_IMAGE_PATH_4:latest
+  post_build:
+    commands:
+      - docker push AWS_IMAGE_PATH_1:latest
+      - docker push AWS_IMAGE_PATH_2:latest
+      - docker push AWS_IMAGE_PATH_3:latest
+      - docker push AWS_IMAGE_PATH_4:latest

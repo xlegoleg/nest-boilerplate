@@ -1,6 +1,7 @@
 import {
+  IsArray,
   IsEmail,
-  IsNotEmpty,
+  IsNotEmpty, IsOptional,
   IsString,
   IsStrongPassword,
   IsUUID,
@@ -21,4 +22,10 @@ export class UserDto {
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty({ each: true })
+  roles: string[];
 }

@@ -45,7 +45,7 @@ export abstract class AbstractMongoRepository<
   }
 
   async findOneAndDelete(filterQuery: FilterQuery<TDoc>): Promise<TDoc> {
-    return this.model.findOneAndUpdate(filterQuery).lean<TDoc>(true);
+    return this.model.findOneAndDelete(filterQuery).lean<TDoc>(true);
   }
 
   async find(filterQuery: FilterQuery<TDoc>): Promise<TDoc[]> {

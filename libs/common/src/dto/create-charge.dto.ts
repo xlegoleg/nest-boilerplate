@@ -1,6 +1,7 @@
 import { CardDto } from '@app/common/dto/card.dto';
 import {
   IsDefined,
+  IsEmail,
   IsNotEmpty,
   IsNotEmptyObject,
   IsNumber,
@@ -8,7 +9,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateChargeDto {
+export class ChargeDto {
   @IsDefined()
   @IsNotEmptyObject()
   @ValidateNested()
@@ -18,4 +19,16 @@ export class CreateChargeDto {
   @IsNumber()
   @IsNotEmpty()
   amount: number;
+}
+
+export class CreateChargeDto {
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => ChargeDto)
+  charge: ChargeDto;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 }

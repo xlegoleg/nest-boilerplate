@@ -5,10 +5,12 @@ services:
       dockerfile: ./apps/reservations/Dockerfile
       target: development
     command: npm run start:dev reservations
+    #command: npm run start:debug reservations
     env_file:
       - ./apps/reservations/.env
     ports:
       - '3000:3000'
+      #- '9229:9229'
     volumes:
       - .:/usr/src/app
     environment:
@@ -37,6 +39,20 @@ services:
       - ./apps/payments/.env
     ports:
       - '3002:3002'
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - TZ=Europe/Belgrade
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: npm run start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+    ports:
+      - '3003:3003'
     volumes:
       - .:/usr/src/app
     environment:

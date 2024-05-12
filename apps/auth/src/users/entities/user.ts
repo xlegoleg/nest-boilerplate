@@ -15,4 +15,12 @@ export class User extends AbstractPostgresEntity {
 
   @Column()
   password: string;
+
+  @Column({
+    type: 'varchar',
+    length: 50,
+    array: true,
+    nullable: true,
+  })
+  roles: string[];
 }

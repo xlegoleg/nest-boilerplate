@@ -16,9 +16,6 @@ export class ReservationModel extends AbstractMongoSchema {
   userId: string;
 
   @Prop()
-  placeId: string;
-
-  @Prop()
   invoiceId: string;
 }
 
